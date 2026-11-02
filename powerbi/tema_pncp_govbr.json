@@ -1,0 +1,45 @@
+{
+  "name": "Pncp_govbr Sobrio",
+  "dataColors": [
+    "#1F3A5F",
+    "#5B7C99",
+    "#9DB4C9",
+    "#C8812A",
+    "#2E7D6B",
+    "#8A94A0",
+    "#B3402E",
+    "#3D5A73"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#1F2933",
+  "tableAccent": "#1F3A5F",
+  "good": "#2E7D6B",
+  "neutral": "#C8812A",
+  "bad": "#B3402E",
+  "maximum": "#1F3A5F",
+  "center": "#9DB4C9",
+  "minimum": "#EAF0F5",
+  "null": "#8A94A0",
+  "textClasses": {
+    "label": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI",
+      "color": "#1F2933"
+    },
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1F3A5F"
+    },
+    "title": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1F2933"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1F2933"
+    }
+  }
+}
