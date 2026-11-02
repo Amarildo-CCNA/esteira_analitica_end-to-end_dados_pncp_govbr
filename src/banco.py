@@ -48,11 +48,13 @@ def _separar_comandos(texto):
     return [c.strip() for c in sem_comentarios.split(";") if c.strip()]
 
 
-def executar_script(conexao, caminho):
+def executar_script(conexao, caminho, confirmar=True):
+    """Roda um arquivo .sql. Com confirmar=False NAO faz commit: quem chamou decide (commit ou rollback)."""
     cursor = conexao.cursor()
     for comando in _separar_comandos(caminho.read_text(encoding="utf-8")):
         cursor.execute(comando)
-    conexao.commit()
+    if confirmar:
+        conexao.commit()
     cursor.close()
 
 
@@ -72,7 +74,7 @@ def consultar(conexao, comando, params=None):
     return linhas
 
 
-def inserir_em_lote(conexao, sql_insert, linhas):
+def inserir_em_lote(conexao, sql_insert, linhas, confirmar=True):
     """Insere varias linhas de uma vez.
 
     'sql_insert' vem no formato  INSERT INTO t (a,b) VALUES (%s, %s)
@@ -84,5 +86,6 @@ def inserir_em_lote(conexao, sql_insert, linhas):
     base = re.sub(r"VALUES\s*\(.*\)\s*$", "VALUES %s", sql_insert, flags=re.S)
     cursor = conexao.cursor()
     execute_values(cursor, base, linhas, page_size=2000)
-    conexao.commit()
+    if confirmar:                       # confirmar=False: a carga inteira vira UMA transacao (commit so no fim)
+        conexao.commit()
     cursor.close()
