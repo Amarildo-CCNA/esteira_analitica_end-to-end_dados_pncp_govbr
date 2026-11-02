@@ -1,28 +1,28 @@
 """
-limpeza.py  -  FUNCOES DE LIMPEZA   (voce completa os trechos marcados com ____)
+limpeza.py  -  FUNÇÔES DE LIMPEZA   (você completa os trechos marcados com ____)
 ============================================================================
-Cada funcao resolve UM problema dos dados brutos (CNPJ com mascara, "R$ 1.234,56", datas em varios formatos...).
-Leia o texto da funcao, olhe os exemplos e troque cada  ____  pelo codigo certo.
+Cada função resolve 01 problema dos dados brutos (CNPJ com máscara, "R$ 1.234,56", datas em vários formatos...).
+Leia o texto da função, olhe os exemplos e troque cada  ____  pelo código certo.
 O que vem depois de "COMPLETE:" explica, em uma frase, o que fazer.
 
 COMO SABER SE ACERTOU:   python -m src.limpeza
-O arquivo testa as suas funcoes com os exemplos do casos_de_teste.docx e mostra  ✔ (acertou)  ou  ✘ (confira de novo).
-Faca uma funcao por vez, na ordem em que aparecem: as ultimas usam as primeiras.
-Dica de ouro: se travar, volte ao guia_de_referencias.docx: ele diz em qual trabalho antigo voce ja viu algo parecido.
+O arquivo testa as suas funções com os exemplos do casos_de_teste.docx e mostra  ✔ (acertou)  ou  ✘ (confira de novo).
+Faça uma função por vez, na ordem em que aparecem: as ultimas usam as primeiras.
+Dica de ouro: se travar, volte ao guia_de_referências.docx: ele diz em qual trabalho antigo voce já viu algo parecido.
 """
 
 from datetime import datetime
 
-# Textos que significam "sem valor" num campo de TEXTO (sempre comparados em MAIUSCULAS)
+# Textos que significam "sem valor" num campo de TEXTO (sempre comparados em MAIÚSCULAS)
 NULOS = {"N/A", "NULL", "NONE", "NAN", "-", "0", "SEM INFORMAÇÃO", "SEM INFORMACAO",
          "NÃO INFORMADO", "NAO INFORMADO", "NÃO SE APLICA", "NAO SE APLICA"}
 
-# Formatos de data que aparecem nos arquivos (a letra %d e dia, %m e mes, %Y e ano com 4 digitos)
+# Formatos de data que aparecem nos arquivos (a letra %d e dia, %m e mes, %Y e ano com 4 dígitos)
 FORMATOS_DATA = ["%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%Y/%m/%d", "%Y%m%d"]
 
 
 # ---------------------------------------------------------------------------------------------
-# 1) TEXTO  (nulos disfarcados, espacos, acento quebrado)
+# 1) TEXTO  (nulos disfarçados, espaços, acento quebrado)
 # ---------------------------------------------------------------------------------------------
 def remover_invisiveis(texto):
     """PRONTA (so leia). Apaga caracteres invisiveis de largura zero que vem de sistemas antigos."""
@@ -42,9 +42,9 @@ def consertar_acento(texto):
 
 def tirar_espacos(texto):
     """Tira espacos das pontas e espacos repetidos.   '  Ana   Maria ' -> 'Ana Maria'  (  e o espaco 'sem quebra')."""
-    # DICA: texto.split() separa o texto em palavras, em QUALQUER espaco (inclusive o 'sem quebra')
-    # COMPLETE: junte as palavras de volta com UM unico espaco entre elas (" ".join(...))
-    return ____
+    # DICA: texto.split() separa o texto em palavras, em QUALQUER espaço (inclusive o 'sem quebra')
+    # COMPLETE: junte as palavras de volta com UM único espaço entre elas (" ".join(...))
+    return " ".join(texto.split())
 
 
 def eh_nulo(texto, zero_eh_nulo=True):
@@ -54,10 +54,10 @@ def eh_nulo(texto, zero_eh_nulo=True):
     if chave == "":
         return True
     if chave == "0":
-        # COMPLETE: devolva o que diz se o zero conta como nulo neste campo (o parametro da funcao)
-        return ____
-    # COMPLETE: o texto e nulo se a chave estiver no conjunto NULOS
-    return ____
+        # COMPLETE: devolva o que diz se o zero conta como nulo neste campo (o parâmetro da funçâo)
+        return zero_eh_nulo
+    # COMPLETE: o texto é nulo se a chave estiver no conjunto NULOS
+    return chave in NULOS
 
 
 def limpar_texto(texto, zero_eh_nulo=True):
@@ -66,10 +66,10 @@ def limpar_texto(texto, zero_eh_nulo=True):
         return None
     texto = remover_invisiveis(texto)
     texto = consertar_acento(texto.strip(" "))
-    # COMPLETE: chame tirar_espacos(texto)
-    texto = ____
+    # COMPLETE: chame tirar_espaços(texto)
+    texto = tirar_espacos(texto)
     # COMPLETE: se o texto for nulo (use eh_nulo, passando o zero_eh_nulo), devolva None
-    if ____:
+    if eh_nulo(texto, zero_eh_nulo):
         return None
     return texto
 
@@ -80,15 +80,15 @@ def padronizar_nome(texto):
     texto = limpar_texto(texto)
     if texto is None:
         return None
-    # COMPLETE: coloque em maiusculas (metodo .upper())
-    texto = texto.____
-    # COMPLETE: troque cada "-" por " - " (o tirar_espacos abaixo arruma os espacos repetidos)
-    texto = ____
+    # COMPLETE: coloque em maiúsculas (metodo .upper())
+    texto = texto.upper()
+    # COMPLETE: troque cada "-" por " - " (o tirar_espaços abaixo arruma os espaços repetidos)
+    texto = texto.replace("-", " - ")
     return tirar_espacos(texto)
 
 
 # ---------------------------------------------------------------------------------------------
-# 2) DOCUMENTOS  (CNPJ = 14 digitos, CPF = 11)
+# 2) DOCUMENTOS  (CNPJ = 14 dígitos, CPF = 11)
 # ---------------------------------------------------------------------------------------------
 def limpar_documento(texto, tipo_pessoa=None):
     """Deixa so os digitos do CNPJ/CPF, com os zeros da esquerda de volta.
@@ -100,82 +100,82 @@ def limpar_documento(texto, tipo_pessoa=None):
         return None
     if tipo_pessoa == "PE":
         return texto.upper()
-    # COMPLETE: fique so com os caracteres que sao digitos:  "".join(c for c in texto if c.isdigit())
-    digitos = ____
+    # COMPLETE: fique só com os caracteres que são dígitos:  "".join(c for c in texto if c.isdigit())
+    digitos = "".join(c for c in texto if c.isdigit())
     if digitos == "":
         return None
     if tipo_pessoa == "PJ":
         tamanho = 14
     elif tipo_pessoa == "PF":
         tamanho = 11
-    else:                                    # sem o tipo: mais de 11 digitos e CNPJ, senao CPF
+    else:                                    # sem o tipo: mais de 11 digitos e CNPJ, senão CPF
         tamanho = 14 if len(digitos) > 11 else 11
-    if len(digitos) > tamanho:               # digitos demais: documento impossivel
+    if len(digitos) > tamanho:               # digitos demais: documento impossível
         return None
-    # COMPLETE: complete com zeros a esquerda ate o tamanho certo (metodo .zfill(tamanho))
-    return digitos.____
+    # COMPLETE: complete com zeros à esquerda até o tamanho certo (método .zfill(tamanho))
+    return digitos.zfill(tamanho)
 
 
 # ---------------------------------------------------------------------------------------------
-# 3) DINHEIRO E NUMEROS EM TEXTO
+# 3) DINHEIRO E NÚMEROS EM TEXTO
 # ---------------------------------------------------------------------------------------------
 def converter_numero(texto):
     """'R$ 1.234,56' -> 1234.56      '1,234.56' -> 1234.56      '0,754' -> 0.754      '(1.500,00)' -> -1500.0
-    REGRA DESTA BASE: ponto OU virgula SOZINHO e sempre o DECIMAL ('1.234' -> 1.234; '746.815' -> 746.815).
-    So o simbolo REPETIDO e milhar ('1.234.567' -> 1234567). Quando aparecem os dois, o ULTIMO e o decimal.
-    Devolve None se nao der para converter ('N/A', vazio). O zero e um numero valido (0 -> 0.0)."""
-    texto = limpar_texto(texto, zero_eh_nulo=False)     # False: aqui o 0 e valor, nao nulo
+    REGRA DESTA BASE: ponto OU vírgula SOZINHO e sempre o DECIMAL ('1.234' -> 1.234; '746.815' -> 746.815).
+    Só o símbolo REPETIDO é milhar ('1.234.567' -> 1234567). Quando aparecem os dois, o ÚLTIMO é o decimal.
+    Devolve None se não der para converter ('N/A', vazio). O zero é um número válido (0 -> 0.0)."""
+    texto = limpar_texto(texto, zero_eh_nulo=False)     # False: aqui o 0 é valor, não nulo
     if texto is None:
         return None
     texto = texto.replace("R$", "").replace(" ", "")
-    # COMPLETE: e negativo se comecar com "(" ou com "-", ou se terminar com "-":  (1.500,00)  -12,50  1.500,00-
-    negativo = ____
+    # COMPLETE: é negativo se começar com "(" ou com "-", ou se terminar com "-":  (1.500,00)  -12,50  1.500,00-
+    negativo = texto.startswith("(") or texto.startswith("-") or texto.endswith("-")
     texto = texto.strip("()-")
     if "." in texto and "," in texto:
         if texto.rfind(",") > texto.rfind("."):
-            # formato 1.234,56 (a virgula vem por ultimo). COMPLETE: tire os pontos e troque a virgula por ponto
-            texto = ____
+            # formato 1.234,56 (a virgula vem por último). COMPLETE: tire os pontos e troque a vírgula por ponto
+            texto = texto.replace(".", "").replace(",", ".")
         else:
-            # formato 1,234.56 (o ponto vem por ultimo). COMPLETE: tire as virgulas
-            texto = ____
+            # formato 1,234.56 (o ponto vem por último). COMPLETE: tire as vírgulas
+            texto = texto.replace(",", "")
     elif "," in texto:
         if texto.count(",") > 1:
-            # 1,234,567 (virgula repetida = milhar). COMPLETE: tire as virgulas
-            texto = ____
+            # 1,234,567 (vírgula repetida = milhar). COMPLETE: tire as vírgulas
+            texto = texto.replace(",", "")
         else:
-            # 12,5 (virgula sozinha = decimal). COMPLETE: troque a virgula por ponto
-            texto = ____
+            # 12,5 (vírgula sozinha = decimal). COMPLETE: troque a vírgula por ponto
+            texto = texto.replace(",", ".")
     elif texto.count(".") > 1:
         # 1.234.567 (ponto repetido = milhar). COMPLETE: tire os pontos
-        texto = ____
-    # (ponto sozinho, como em 1234.56 ou 746.815, ja e decimal: nao precisa mexer)
+        texto = texto.replace(".", "")
+    # (ponto sozinho, como em 1234.56 ou 746.815, já e decimal: não precisa mexer)
     try:
         numero = float(texto)
     except ValueError:
         return None
-    # COMPLETE: se for negativo, devolva o numero com sinal de menos; senao, o proprio numero
-    return ____
+    # COMPLETE: se for negativo, devolva o número com sinal de menos; senão, o próprio número
+    return -numero if negativo else numero
 
 
 # ---------------------------------------------------------------------------------------------
-# 4) DATAS  (varios formatos no mesmo campo)
+# 4) DATAS  (vários formatos no mesmo campo)
 # ---------------------------------------------------------------------------------------------
 def converter_data(texto):
     """'2025-03-10T08:30:00', '10/03/2025 14:20', '10.03.2025', '20250310' -> a data 2025-03-10 (sem hora).
-    Devolve None para vazio, data impossivel ('31/02/2025') ou ano absurdo ('0001-01-01': so valem 2000 a 2030)."""
+    Devolve None para vazio, data impossível ('31/02/2025') ou ano absurdo ('0001-01-01': so valem 2000 a 2030)."""
     texto = limpar_texto(texto)
     if texto is None:
         return None
-    # COMPLETE: fique so com os 10 primeiros caracteres (o texto[:10] descarta a hora)
-    texto = texto[:____]
+    # COMPLETE: fique só com os 10 primeiros caracteres (o texto[:10] descarta a hora)
+    texto = texto[:10]
     for formato in FORMATOS_DATA:
         try:
-            # COMPLETE: strptime le o texto no formato; .date() tira a hora. Use datetime.strptime(texto, formato).date()
-            data = ____
+            # COMPLETE: strptime lê o texto no formato; .date() tira a hora. Use datetime.strptime(texto, formato).date()
+            data = datetime.strptime(texto, formato).date()
         except ValueError:
-            continue                          # nao era esse formato: tente o proximo
-        # COMPLETE: so vale se o ano estiver entre 2000 e 2030 (use data.year)
-        if ____:
+            continue                          # não era esse formato: tente o próximo
+        # COMPLETE: só vale se o ano estiver entre 2000 e 2030 (use data.year)
+        if 2000 <= data.year <= 2030:
             return data
         return None
     return None
@@ -187,7 +187,7 @@ def converter_data(texto):
 from datetime import date  # noqa: E402
 
 CASOS = [
-    # (funcao, argumentos, resultado esperado)   -> os mesmos exemplos do casos_de_teste.docx
+    # (função, argumentos, resultado esperado)   -> os mesmos exemplos do casos_de_teste.docx
     ("tirar_espacos", ("  Ana   Maria ",), "Ana Maria"),
     ("eh_nulo", ("N/A",), True), ("eh_nulo", ("SEM INFORMAÇÃO",), True), ("eh_nulo", ("",), True),
     ("eh_nulo", ("Ana",), False), ("eh_nulo", ("0", True), True), ("eh_nulo", ("0", False), False),
@@ -234,7 +234,7 @@ def testar():
         try:
             obtido = globals()[nome](*args)
             ok = obtido == esperado
-        except Exception as erro:                       # funcao ainda com ____ (NameError) ou com erro
+        except Exception as erro:                       # função ainda com ____ (NameError) ou com erro
             obtido, ok = f"erro: {type(erro).__name__}", False
         acertos += ok
         if not ok:
