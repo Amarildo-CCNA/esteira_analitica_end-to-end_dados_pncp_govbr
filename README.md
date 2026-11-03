@@ -1,4 +1,3 @@
-
 # PROJETO — esteira_analitica_end-to-end_dados_pncp_govbr
 
 > PNCP (CSV bruto) → **Python** (auditoria + limpeza) → **PostgreSQL** (Star Schema) → **Power BI** (dashboard executivo)
@@ -30,7 +29,7 @@ esteira_analitica_end-to-end_dados_pncp_govbr/
 
 A execução do projeto foi dividida em Sprints modulares, onde cada ciclo resulta em uma entrega auditável, mapeada diretamente com a prova real.
 
-![Sprints do projeto](docs/imagens/sprints.png)
+![sprints_do_projeto](docs/imagens/sprints.png)
 
 ### Detalhamento das Entregas por Sprint
 
@@ -122,7 +121,7 @@ A execução do projeto foi dividida em Sprints modulares, onde cada ciclo resul
 
 ## 5. Arquitetura do Banco de Dados (Star Schema)
 
-O banco segue o modelo dimensional estrela abaixo, mitigando redundâncias e acelerando as consultas analíticas:![Relacionamento das Tabelas](docs/imagens/Dimensões.PNG)
+O banco segue o modelo dimensional estrela abaixo, mitigando redundâncias e acelerando as consultas analíticas:![relacionamento_das_tabelas](docs/imagens/Dimensões.PNG)
 
 `O tempo é a tabela Calendario criada em DAX no Power BI.`
 
