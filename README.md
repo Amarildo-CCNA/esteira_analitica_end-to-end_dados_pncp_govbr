@@ -121,7 +121,7 @@ A execução do projeto foi dividida em Sprints modulares, onde cada ciclo resul
 
 ## 5. Arquitetura do Banco de Dados (Star Schema)
 
-O banco segue o modelo dimensional estrela abaixo, mitigando redundâncias e acelerando as consultas analíticas:![relacionamento_das_tabelas](docs/imagens/Dimensões.PNG)
+O banco segue o modelo dimensional estrela abaixo, mitigando redundâncias e acelerando as consultas analíticas:![relacionamento_das_tabelas](docs/imagens/dimensoes.png)
 
 `O tempo é a tabela Calendario criada em DAX no Power BI.`
 
