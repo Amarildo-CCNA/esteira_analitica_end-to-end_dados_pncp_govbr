@@ -30,7 +30,7 @@ esteira_analitica_end-to-end_dados_pncp_govbr/
 
 A execução do projeto foi dividida em Sprints modulares, onde cada ciclo resulta em uma entrega auditável, mapeada diretamente com a prova real.
 
-![sprints](docs/imagens/sprints.png?v=1)
+![](<img src="docs/imagens/sprints.png" alt="sprints">)![sprints](docs/imagens/sprints.png)
 
 ### Detalhamento das Entregas por Sprint
 
